@@ -6,6 +6,7 @@
     --background-btn-color: #F5F4FA;
     --background-footer-color: #2F303A;
     --footer-color: rgba(255, 254, 254, 0.6);
+    --overlay-color: rgba(33, 150, 243, 0.9);
 }
 
 body{
@@ -21,11 +22,6 @@ ul{
 button{
     font-family: inherit;
 }
-
-/* цвет основного текста #212121 */
-/* цвет вспом текста #757575 */
-/* белый #ffffff */
-/* акцент синий #2196f3 */
 
 .logo,
 .studio{
@@ -75,6 +71,8 @@ button{
     line-height: 1.33;
     letter-spacing: 0.02em;
     text-decoration: none;
+    position: relative;
+    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .site-nav .link:hover,
 .site-nav .link:focus {
@@ -82,6 +80,17 @@ button{
 }
 .site-nav .link.current{
     color: var(--accent-color);
+}
+.current::after{
+    content: "";
+    display: inline-block;
+    height: 4px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: var(--accent-color);
+    border-radius: 2px;
 }
 /* auth */
 .auth-mail,
@@ -95,6 +104,7 @@ button{
     line-height: 1.33;
     letter-spacing: 0.02em;
     text-decoration: none;
+    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1), fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .retreat{
     margin-right: 10px;
@@ -139,6 +149,7 @@ button{
     letter-spacing: 0.03em;
     text-decoration: none;
     cursor: pointer;
+    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1), background-color 250ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .filter .button{
      max-width: 145px;   
@@ -161,8 +172,10 @@ button{
 }
 .cards .item{
     width: 370px;
+    transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
-.cards .item:hover{
+.cards .item:hover,
+.cards-link:focus .cards .item{
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06), 1px 4px 6px rgba(0, 0, 0, 0.16);
 }
 .cards .item:not(:nth-child(3n)){
@@ -170,6 +183,34 @@ button{
 }
 .cards .item:not(:nth-last-child(-n+3)){
     margin-bottom: 30px;
+}
+.tumb{
+    position: relative;
+    overflow: hidden;
+}
+.cards-link:hover .overlay,
+.cards-link:focus .overlay{
+    transform: translateY(0);
+}
+.overlay{
+    padding: 63px 24px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--overlay-color);
+    transform: translateY(100%);
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.tumb .overlay p{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.56;
+    letter-spacing: 0.03em;
+    color: #FFFFFF;
 }
 .cards .content{
     padding: 20px 24px;
@@ -235,6 +276,7 @@ button{
     letter-spacing: 0.06em;
     text-decoration: none;
     cursor: pointer;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .hero-btn:hover,
 .hero-btn:focus{
@@ -306,6 +348,28 @@ p{
 img{
     display: block;
 }
+.work-item{
+    position: relative;
+}
+.work-insert{
+    position: absolute;
+    bottom: 0;
+    width: 370px;
+    height: 70px;
+    display: flex;
+    background: rgba(47, 48, 58, 0.8);
+}
+.work-insert p{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.14;    
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    margin: auto;
+}
 .command{
     display: flex;
 }
@@ -353,9 +417,11 @@ img{
     border-radius: 50%;
     align-items: center;
     justify-content: center;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .command-ikons{
     fill: #AFB1B8;
+    transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .ikons1:hover .command-ikons,
 .ikons1:focus .command-ikons{
@@ -383,12 +449,14 @@ img{
     box-sizing: border-box;
     border-radius: 4px;
     background-color: var(--white-color);
+    transition: border 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .customers li + li{
     margin-left: 30px;
 }
 .button-icon{    
     fill: #AFB1B8;
+    transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .button1:hover,
 .button1:focus{
@@ -420,6 +488,7 @@ img{
     letter-spacing: 0.03em;
     text-decoration: none;
     font-style: normal;
+    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .address-indent{
     margin-top: 9px;
@@ -475,3 +544,55 @@ img{
     clip: rect(0 0 0 0);
     overflow: hidden;
   }
+  .backdrop{
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1), visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.backdrop.is-hidden{
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+.modal{
+    position: absolute;
+    animation: animatescale 2000ms linear;  
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 528px;
+    min-height: 581px;
+    background-color: var(--white-color);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    
+}
+.modal-close{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+}
+@keyframes animatescale {
+    0%{
+        transform: scale(0.7) translate(-50%, -50%);
+    }
+    100%{
+        transform: scale(1) translate(-50%, -50%);
+    }
+}
